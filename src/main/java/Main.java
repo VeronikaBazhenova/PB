@@ -33,45 +33,39 @@ public class Main {
                 Scanner nNum = new Scanner(System.in);
                 String number = nNum.nextLine();
                 if (phonebook.containsKey(name)){
-                    ArrayList<String> val = phonebook.get(name);
-                    val.add(number);
-                    phonebook.put(name, val);
+                    if(phonebook.get(name).contains(number)){
+                        continue;
+                    }else {
+                        ArrayList<String> val = phonebook.get(name);
+                        val.add(number);
+                        phonebook.put(name, val);
+                    }
 
                 }else {
                     ArrayList<String> val = new ArrayList<>();
                     val.add(number);
                     phonebook.put(name,val);
+
                 }
             }
             if (choice == 2) {
                 ArrayList<Integer> indVal = new ArrayList<>();
-//                HashMap<String, Integer> indKey = new HashMap<>();
+                HashMap<String, String> indKey = new HashMap<>();
                 for (String k : phonebook.keySet()) {
                     indVal.add(phonebook.get(k).size());
-//                    indKey.put(k, phonebook.get(k).size());
+                    int size = phonebook.get(k).size();
+                    indKey.put(String.valueOf(size),k);
                 }
-//                ArrayList<Integer> line = new ArrayList<>();
-//                for (int v : indKey.values()) {
-//                    line.add((int)v);
-//                }
-//
 
-                indVal.sort(Collections.reverseOrder());
+       indVal.sort(Collections.reverseOrder());
 
-                Set<String> myKeySet = phonebook.keySet();
-                   for (String k : phonebook.keySet()) {
-                       for (int el : indVal) {
-                           if (phonebook.get(k).size() == el){
-                               System.out.println(k + " :" + phonebook.get(k));
-                           }
-                       }
-
-
+                for (int size : indVal) {
+                    System.out.println((indKey.get(String.valueOf(size)) + " " + phonebook.get((indKey.get(String.valueOf(size))))));
 
                 }
-//
-//
             }
+
+
 
             if (choice == 3) {
                 System.out.println("Введите ФИО для поиска: ");
